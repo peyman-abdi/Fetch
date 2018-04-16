@@ -24,7 +24,10 @@ interface DatabaseManager : Closeable {
     fun get(id: Int): DownloadInfo?
     fun get(ids: List<Int>): List<DownloadInfo?>
     fun getByStatus(status: Status): List<DownloadInfo>
+    fun getByStatuses(statuses: List<Status>): List<DownloadInfo>
     fun getByGroup(group: Int): List<DownloadInfo>
+    fun getByUID(uid: String): List<DownloadInfo>
+    fun getByUIDs(uids: List<String>): List<DownloadInfo>
     fun getDownloadsInGroupWithStatus(groupId: Int, status: Status): List<DownloadInfo>
     fun getPendingDownloadsSorted(): List<DownloadInfo>
 }

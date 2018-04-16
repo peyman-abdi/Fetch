@@ -44,6 +44,8 @@ interface Download {
      *  */
     val status: Status
 
+    val track: String?
+
     /** If the download encountered an error, the download status will be Status.Failed and
      *  this field will provide the specific error when possible.
      *  Otherwise the default non-error value is Error.NONE.

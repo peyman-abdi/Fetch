@@ -7,6 +7,7 @@ import com.tonyodev.fetch2.database.DownloadDatabase.Companion.COLUMN_GROUP
 import com.tonyodev.fetch2.database.DownloadDatabase.Companion.COLUMN_ID
 import com.tonyodev.fetch2.database.DownloadDatabase.Companion.COLUMN_PRIORITY
 import com.tonyodev.fetch2.database.DownloadDatabase.Companion.COLUMN_STATUS
+import com.tonyodev.fetch2.database.DownloadDatabase.Companion.COLUMN_UID
 import com.tonyodev.fetch2.database.DownloadDatabase.Companion.TABLE_NAME
 
 
@@ -46,8 +47,17 @@ interface DownloadDao {
     @Query("SELECT * FROM $TABLE_NAME WHERE $COLUMN_STATUS = :status")
     fun getByStatus(status: Status): List<DownloadInfo>
 
+    @Query("SELECT * FROM $TABLE_NAME WHERE $COLUMN_STATUS IN (:statuses)")
+    fun getByStatuses(statuses: List<Int>): List<DownloadInfo>
+
     @Query("SELECT * FROM $TABLE_NAME WHERE $COLUMN_GROUP = :group")
     fun getByGroup(group: Int): List<DownloadInfo>
+
+    @Query("SELECT * FROM $TABLE_NAME WHERE $COLUMN_UID = :uid")
+    fun getByUID(uid: String): List<DownloadInfo>
+
+    @Query("SELECT * FROM $TABLE_NAME WHERE $COLUMN_UID IN (:uids)")
+    fun getByUIDs(uids: List<String>): List<DownloadInfo>
 
     @Query("SELECT * FROM $TABLE_NAME WHERE $COLUMN_GROUP = :group AND $COLUMN_STATUS = :status")
     fun getByGroupWithStatus(group: Int, status: Status): List<DownloadInfo>

@@ -159,10 +159,43 @@ class DatabaseManagerImpl constructor(context: Context,
         }
     }
 
+    override fun getByStatuses(statuses: List<Status>): List<DownloadInfo> {
+        synchronized(lock) {
+            throwExceptionIfClosed()
+            var list = ArrayList<Int>()
+            statuses.forEach {
+                list.add(it.value)
+            }
+            var downloads = requestDatabase.requestDao().getByStatuses(list)
+            if (sanitize(downloads)) {
+                downloads = downloads.filter { statuses.contains(it.status) }
+            }
+            return downloads
+        }
+    }
+
     override fun getByGroup(group: Int): List<DownloadInfo> {
         synchronized(lock) {
             throwExceptionIfClosed()
             val downloads = requestDatabase.requestDao().getByGroup(group)
+            sanitize(downloads)
+            return downloads
+        }
+    }
+
+    override fun getByUID(uid: String): List<DownloadInfo> {
+        synchronized(lock) {
+            throwExceptionIfClosed()
+            val downloads = requestDatabase.requestDao().getByUID(uid)
+            sanitize(downloads)
+            return downloads
+        }
+    }
+
+    override fun getByUIDs(uids: List<String>): List<DownloadInfo> {
+        synchronized(lock) {
+            throwExceptionIfClosed()
+            val downloads = requestDatabase.requestDao().getByUIDs(uids)
             sanitize(downloads)
             return downloads
         }
