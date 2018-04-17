@@ -27,6 +27,8 @@ open class RequestInfo {
      * @see com.tonyodev.fetch2.NetworkType*/
     var networkType: NetworkType = defaultNetworkType
 
+    var uid: String? = null
+
     /** Adds a header for a download.
      * @param key Header Key
      * @param value Header Value
@@ -49,6 +51,7 @@ open class RequestInfo {
         if (priority != other.priority) return false
         if (networkType != other.networkType) return false
         if (tag != other.tag) return false
+        if (uid != other.uid) return false
 
         return true
     }
@@ -59,12 +62,13 @@ open class RequestInfo {
         result = 31 * result + priority.hashCode()
         result = 31 * result + networkType.hashCode()
         result = 31 * result + (tag?.hashCode() ?: 0)
+        result = 31 * result + (uid?.hashCode() ?: 0)
         return result
     }
 
     override fun toString(): String {
         return "RequestInfo(groupId=$groupId, headers=$headers, priority=$priority, " +
-                "networkType=$networkType, tag=$tag)"
+                "networkType=$networkType, tag=$tag, uid=$uid)"
     }
 
 }

@@ -57,7 +57,7 @@ class DownloadInfo : Download {
     override var tag: String? = null
 
     @ColumnInfo(name = DownloadDatabase.COLUMN_UID)
-    override var track: String? = null
+    override var uid: String? = null
 
     override val progress: Int
         get() {
@@ -98,7 +98,7 @@ class DownloadInfo : Download {
         if (networkType != other.networkType) return false
         if (created != other.created) return false
         if (tag != other.tag) return false
-        if (track != other.track) return false
+        if (uid != other.uid) return false
 
         return true
     }
@@ -118,14 +118,14 @@ class DownloadInfo : Download {
         result = 31 * result + networkType.hashCode()
         result = 31 * result + created.hashCode()
         result = 31 * result + (tag?.hashCode() ?: 0)
-        result = 31 * result + (track?.hashCode() ?: 0)
+        result = 31 * result + (uid?.hashCode() ?: 0)
         return result
     }
 
     override fun toString(): String {
         return "Download(id=$id, namespace='$namespace', url='$url', file='$file', group=$group," +
                 " priority=$priority, headers=$headers, downloaded=$downloaded, total=$total, status=$status," +
-                " error=$error, networkType=$networkType, created=$created, tag=$tag, track=$track)"
+                " error=$error, networkType=$networkType, created=$created, tag=$tag, uid=$uid)"
     }
 
 }

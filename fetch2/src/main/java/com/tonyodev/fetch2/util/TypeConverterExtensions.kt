@@ -19,6 +19,7 @@ fun Request.toDownloadInfo(): DownloadInfo {
     downloadInfo.error = defaultNoError
     downloadInfo.downloaded = getFileLength(file)
     downloadInfo.tag = tag
+    downloadInfo.uid = uid
     return downloadInfo
 }
 
@@ -38,5 +39,6 @@ fun Download.toDownloadInfo(): DownloadInfo {
     downloadInfo.error = error
     downloadInfo.created = created
     downloadInfo.tag = tag
+    downloadInfo.uid = uid
     return downloadInfo
 }

@@ -44,7 +44,8 @@ interface Download {
      *  */
     val status: Status
 
-    val track: String?
+    /** Extra parameter to store an id corresponding to online resource being downloaded */
+    val uid: String?
 
     /** If the download encountered an error, the download status will be Status.Failed and
      *  this field will provide the specific error when possible.

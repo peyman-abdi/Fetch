@@ -4,9 +4,8 @@ package com.tonyodev.fetch2.fetch
 import android.os.Handler
 import com.tonyodev.fetch2.*
 import com.tonyodev.fetch2.exception.FetchException
-import com.tonyodev.fetch2.provider.ListenerProvider
-import com.tonyodev.fetch2.getErrorFromMessage
 import com.tonyodev.fetch2.fetch.FetchModulesBuilder.Modules
+import com.tonyodev.fetch2.provider.ListenerProvider
 
 
 open class FetchImpl constructor(override val namespace: String,
@@ -518,6 +517,38 @@ open class FetchImpl constructor(override val namespace: String,
             handler.post {
                 try {
                     val downloads = fetchHandler.getDownloadsWithStatus(status)
+                    uiHandler.post {
+                        func.call(downloads)
+                    }
+                } catch (e: FetchException) {
+                    logger.e("Fetch with namespace $namespace error", e)
+                }
+            }
+        }
+    }
+
+    override fun getDownloadsWithStatuses(statuses: List<Status>, func: Func<List<Download>>) {
+        synchronized(lock) {
+            throwExceptionIfClosed()
+            handler.post {
+                try {
+                    val downloads = fetchHandler.getDownloadsWithStatuses(statuses)
+                    uiHandler.post {
+                        func.call(downloads)
+                    }
+                } catch (e: FetchException) {
+                    logger.e("Fetch with namespace $namespace error", e)
+                }
+            }
+        }
+    }
+
+    override fun getDownloadsWithUIDs(uids: List<String>, func: Func<List<Download>>) {
+        synchronized(lock) {
+            throwExceptionIfClosed()
+            handler.post {
+                try {
+                    val downloads = fetchHandler.getDownloadsWithUIDs(uids)
                     uiHandler.post {
                         func.call(downloads)
                     }

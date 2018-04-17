@@ -5,8 +5,8 @@ import android.os.Handler
 import com.tonyodev.fetch2.*
 import com.tonyodev.fetch2.database.DatabaseManager
 import com.tonyodev.fetch2.downloader.DownloadManager
-import com.tonyodev.fetch2.provider.ListenerProvider
 import com.tonyodev.fetch2.helper.PriorityListProcessor
+import com.tonyodev.fetch2.provider.ListenerProvider
 import com.tonyodev.fetch2.util.*
 import java.io.File
 
@@ -447,6 +447,17 @@ class FetchHandlerImpl(private val namespace: String,
     override fun getDownloadsWithStatus(status: Status): List<Download> {
         startPriorityQueueIfNotStarted()
         return databaseManager.getByStatus(status)
+    }
+
+    override fun getDownloadsWithStatuses(status: List<Status>): List<Download> {
+        startPriorityQueueIfNotStarted()
+        return databaseManager.getByStatuses(status)
+    }
+
+
+    override fun getDownloadsWithUIDs(uids: List<String>): List<Download> {
+        startPriorityQueueIfNotStarted()
+        return databaseManager.getByUIDs(uids)
     }
 
     override fun getDownloadsInGroupWithStatus(groupId: Int, status: Status): List<Download> {

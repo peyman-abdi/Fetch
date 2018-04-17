@@ -38,8 +38,7 @@ fun canRetryDownload(download: Download): Boolean {
 fun canCancelDownload(download: Download): Boolean {
     return when (download.status) {
         Status.COMPLETED,
-        Status.NONE,
-        Status.FAILED -> false
+        Status.NONE -> false
         else -> true
     }
 }

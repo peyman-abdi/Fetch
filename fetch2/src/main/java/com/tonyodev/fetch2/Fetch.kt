@@ -240,6 +240,23 @@ interface Fetch {
     fun getDownloadsWithStatus(status: Status, func: Func<List<Download>>)
 
     /**
+     * Gets all downloads with a specific status.
+     * @see com.tonyodev.fetch2.Status
+     * @param statuses List<Status> to query.
+     * @param func Callback that the results will be returned on.
+     * @throws FetchException if this instance of Fetch has been closed.
+     * */
+    fun getDownloadsWithStatuses(statuses: List<Status>, func: Func<List<Download>>)
+
+    /**
+     * Gets all downloads with a specific uid.
+     * @param uids List<String> to query.
+     * @param func Callback that the results will be returned on.
+     * @throws FetchException if this instance of Fetch has been closed.
+     * */
+    fun getDownloadsWithUIDs(uids: List<String>, func: Func<List<Download>>)
+
+    /**
      * Gets all downloads in a specific group with a specific status.
      * @see com.tonyodev.fetch2.Status
      * @param groupId group id to query.
